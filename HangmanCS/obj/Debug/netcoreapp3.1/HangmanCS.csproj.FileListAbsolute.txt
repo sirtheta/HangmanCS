@@ -1,0 +1,17 @@
+C:\Projects\VS\HangmanCS\HangmanCS\bin\Debug\netcoreapp3.1\HangmanCS.exe
+C:\Projects\VS\HangmanCS\HangmanCS\bin\Debug\netcoreapp3.1\HangmanCS.deps.json
+C:\Projects\VS\HangmanCS\HangmanCS\bin\Debug\netcoreapp3.1\HangmanCS.runtimeconfig.json
+C:\Projects\VS\HangmanCS\HangmanCS\bin\Debug\netcoreapp3.1\HangmanCS.runtimeconfig.dev.json
+C:\Projects\VS\HangmanCS\HangmanCS\bin\Debug\netcoreapp3.1\HangmanCS.dll
+C:\Projects\VS\HangmanCS\HangmanCS\bin\Debug\netcoreapp3.1\HangmanCS.pdb
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS.csprojAssemblyReference.cache
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS_MarkupCompile.cache
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS_MarkupCompile.lref
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS.g.resources
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS.AssemblyInfoInputs.cache
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS.AssemblyInfo.cs
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS.dll
+C:\Projects\VS\HangmanCS\HangmanCS\obj\Debug\netcoreapp3.1\HangmanCS.pdb
