@@ -15,12 +15,13 @@ namespace HangmanCS
         readonly string projectPath = Path.GetFullPath(@"..\..\..\");
         int counter = 0;
         readonly List<string> images = new List<string>();
+        List<string> wordList;
 
         public MainWindow()
         {
             InitializeComponent();
             ImagesToList();
-            TextToList();
+            GetWord();
             SetImage();
         }
         
@@ -41,13 +42,25 @@ namespace HangmanCS
             images.Add("\\resources\\images\\Hangman12.png");
         }  
 
-        private void TextToList()
+        private void GetWord()
         {
-            //opens the Textfile and puts the lines into a string arry
+            //opens the Textfile and puts the lines into a string array
             string[] lines = File.ReadAllLines(projectPath + "\\resources\\words\\words.txt");
             //string array into a list
-            List<string> wordList = new List<string>(lines);
+            wordList = new List<string>(lines);
+    
+            //select word with generatet number
+            string wordToGuess = wordList[RandomNumber(wordList.Count)];
+            Debug.WriteLine(wordToGuess, "word to Guess");
 
+        }
+
+
+        private int RandomNumber(int max)
+        {
+            Random random = new Random();
+            var randomNumber = random.Next(1, max);
+            return randomNumber;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
