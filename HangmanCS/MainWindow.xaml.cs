@@ -20,6 +20,7 @@ namespace HangmanCS
         {
             InitializeComponent();
             ImagesToList();
+            TextToList();
             SetImage();
         }
         
@@ -40,6 +41,15 @@ namespace HangmanCS
             images.Add("\\resources\\images\\Hangman12.png");
         }  
 
+        private void TextToList()
+        {
+            //opens the Textfile and puts the lines into a string arry
+            string[] lines = File.ReadAllLines(projectPath + "\\resources\\words\\words.txt");
+            //string array into a list
+            List<string> wordList = new List<string>(lines);
+
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             counter += 1;
@@ -49,8 +59,6 @@ namespace HangmanCS
 
         private void SetImage()
         {
-            Debug.WriteLine(counter, "counter");
-
             if (images.Count > counter)
             {
                 Uri fileUri = new Uri(projectPath + images[counter]);
@@ -58,7 +66,6 @@ namespace HangmanCS
             }
             else
             {
-                Debug.WriteLine("out of range");
                 LableGameOver.Visibility = Visibility.Visible;
             }
         }
