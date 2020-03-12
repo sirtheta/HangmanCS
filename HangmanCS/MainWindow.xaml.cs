@@ -5,6 +5,7 @@ using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Input;
+using WPFSetup.Util; //Calling messagebox centeringClass
 
 namespace HangmanCS
 {
@@ -23,7 +24,8 @@ namespace HangmanCS
 
         readonly List<string> images = new List<string>();
         List<string> wordList;
-        List<string> keyStroke = new List<string>();
+        readonly List<string> keyStroke = new List<string>();
+        int counter2 = 0;
 
         public MainWindow()
         {
@@ -104,14 +106,16 @@ namespace HangmanCS
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
 
             if (e.Key >= Key.A && e.Key <= Key.Z)
-            {
+            {                
                 KeyConverter converter = new KeyConverter();
                 string letter = converter.ConvertToString(e.Key);
+
                 if (keyStroke.Contains(letter))
                 {
-                    Debug.WriteLine(letter, "letter already pushed");
+                    MessageBox.Show("Buchstabe schon eingegeben!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -121,7 +125,7 @@ namespace HangmanCS
             }
             else
             {
-                Debug.WriteLine(" its not a letter");
+                MessageBox.Show("Es sind nur Buchstaben von A-Z erlaubt!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
