@@ -93,6 +93,7 @@ namespace HangmanCS
 
         private void SetImage()
         {
+            //Sets the Background Image
             if (images.Count > counter)
             {
                 Uri fileUri = new Uri(projectPath + images[counter]);
@@ -108,6 +109,7 @@ namespace HangmanCS
         {
             MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
 
+            //checks if key is a letter, convert it and add id to key Stroke List
             if (e.Key >= Key.A && e.Key <= Key.Z)
             {                
                 KeyConverter converter = new KeyConverter();
