@@ -10,14 +10,14 @@
         "projectUniqueName": "C:\\Projects\\VS\\HangmanCS\\HangmanCS\\HangmanCS.csproj",
         "projectName": "HangmanCS",
         "projectPath": "C:\\Projects\\VS\\HangmanCS\\HangmanCS\\HangmanCS.csproj",
-        "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Michael\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\VS\\HangmanCS\\HangmanCS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Michael\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

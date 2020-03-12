@@ -49,10 +49,18 @@ namespace HangmanCS
 
         private void SetImage()
         {
-            Debug.WriteLine(counter, "counter");   
-            
-            Uri fileUri = new Uri(projectPath + images[counter]);
-            Background.Source = new BitmapImage(fileUri);
+            Debug.WriteLine(counter, "counter");
+
+            if (images.Count > counter)
+            {
+                Uri fileUri = new Uri(projectPath + images[counter]);
+                Background.Source = new BitmapImage(fileUri);
+            }
+            else
+            {
+                Debug.WriteLine("out of range");
+                LableGameOver.Visibility = Visibility.Visible;
+            }
         }
 
     }
