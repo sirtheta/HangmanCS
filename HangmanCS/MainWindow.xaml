@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HangmanCS"
         mc:Ignorable="d"
-        Title="HangMan" Height="700" Width="525">
+        Title="HangMan" Height="700" Width="525" KeyDown="Window_KeyDown">
     <Window.Resources>
 
     </Window.Resources>
     <Grid>
-        <Image x:Name="Background" HorizontalAlignment="Left" Height="700" Width="525" Margin="0,0,0,0" VerticalAlignment="Top" />
+        <Image x:Name="Background" HorizontalAlignment="Left" Height="700" Width="525" Margin="0,0,0,0" VerticalAlignment="Top" Source="resources/images/Hangman01.png" />
         <Button x:Name="ChangeImage" Content="Image" HorizontalAlignment="Left" Margin="427,57,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Label x:Name="LableGameOver" Content="GAME OVER" HorizontalAlignment="Center" Height="175" Margin="0,238,0,0" VerticalAlignment="Top" Width="525" 
                FontSize="72" FontFamily="Arial" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="LabelWordToGuess" Content="" HorizontalAlignment="Center" Height="52" Width="525" Margin="0,96,0,0" VerticalAlignment="Top" 
+               FontSize="30" FontFamily="Arial" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </Window>

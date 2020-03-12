@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace HangmanCS
 {
@@ -12,10 +13,17 @@ namespace HangmanCS
     /// </summary>
     public partial class MainWindow : Window
     {
+        //set Project Path
         readonly string projectPath = Path.GetFullPath(@"..\..\..\");
+        
         int counter = 0;
+
+        string wordToGuess;
+
+
         readonly List<string> images = new List<string>();
         List<string> wordList;
+        List<string> keyStroke = new List<string>();
 
         public MainWindow()
         {
@@ -23,6 +31,7 @@ namespace HangmanCS
             ImagesToList();
             GetWord();
             SetImage();
+            RefreshWord();
         }
         
         private void ImagesToList()
@@ -50,17 +59,27 @@ namespace HangmanCS
             wordList = new List<string>(lines);
     
             //select word with generatet number
-            string wordToGuess = wordList[RandomNumber(wordList.Count)];
+            wordToGuess = wordList[RandomNumber(wordList.Count)];
             Debug.WriteLine(wordToGuess, "word to Guess");
+            Debug.WriteLine(wordToGuess.Length, "word to Guess wortlaenge");
 
         }
-
 
         private int RandomNumber(int max)
         {
             Random random = new Random();
             var randomNumber = random.Next(1, max);
             return randomNumber;
+        }
+
+        private void RefreshWord()
+        {
+
+            for (int i = 0; i <= wordToGuess.Length; i++) 
+            {
+                LabelWordToGuess.Content += $" _ ";
+            }
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -83,5 +102,27 @@ namespace HangmanCS
             }
         }
 
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key >= Key.A && e.Key <= Key.Z)
+            {
+                KeyConverter converter = new KeyConverter();
+                string letter = converter.ConvertToString(e.Key);
+                if (keyStroke.Contains(letter))
+                {
+                    Debug.WriteLine(letter, "letter already pushed");
+                }
+                else
+                {
+                    keyStroke.Add(letter);
+                    Debug.WriteLine(letter, "pressed key is a letter");
+                }
+            }
+            else
+            {
+                Debug.WriteLine(" its not a letter");
+            }
+        }
     }
 }
