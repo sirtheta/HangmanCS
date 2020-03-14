@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Input;
 using WPFSetup.Util; //Calling messagebox centeringClass
+using System.Linq;
 
 namespace HangmanCS
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
     public partial class MainWindow : Window
     {
         //set Project Path
@@ -24,7 +26,7 @@ namespace HangmanCS
 
         readonly List<string> images = new List<string>();
         List<string> wordList;
-        readonly List<string> keyStroke = new List<string>();
+        readonly List<char> keyStroke = new List<char>();
 
 
         public MainWindow()
@@ -85,24 +87,26 @@ namespace HangmanCS
             {
                 if (i != 0)
                 {
-                    textForLabel += " "; 
+                    textForLabel += " ";
                 }
 
-                if (keyStroke.Contains(wordToGuess))
-                {
-                    textForLabel += wordToGuess[i];
-                }
+                    if (keyStroke.Contains(wordToGuess[i]))
+                    {
+                        textForLabel += wordToGuess[i];
+                    }
 
-                else
-                {
-                    textForLabel += "_";
-                }
-
-                LabelWordToGuess.Content = textForLabel;
+                    else
+                    {
+                        textForLabel += "__"; //two underscores because first will be recognised as Access key and not displayed
+                    }
                 counter2++;
                 Debug.WriteLine(counter2, "for _");
             }
+
+            LabelWordToGuess.Content = textForLabel;
         }
+
+
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -142,9 +146,11 @@ namespace HangmanCS
 
             //checks if key is a letter, convert it and add id to key Stroke List
             if (e.Key >= Key.A && e.Key <= Key.Z)
-            {                
+            {
                 KeyConverter converter = new KeyConverter();
-                string letter = converter.ConvertToString(e.Key);
+                string letterStr = converter.ConvertToString(e.Key);
+                char letter = letterStr[0];
+                Debug.WriteLine(letter, "pressed key is a letter");
 
                 if (keyStroke.Contains(letter))
                 {

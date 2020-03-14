@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="HangMan" Height="700" Width="525" KeyDown="Window_KeyDown">
     <Window.Resources>
-
     </Window.Resources>
     <Grid>
         <Image x:Name="Background" HorizontalAlignment="Left" Height="700" Width="525" Margin="0,0,0,0" VerticalAlignment="Top" Source="resources/images/Hangman01.png" />
