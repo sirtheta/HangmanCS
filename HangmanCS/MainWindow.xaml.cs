@@ -16,8 +16,8 @@ namespace HangmanCS
     {
         //set Project Path
         readonly string projectPath = Path.GetFullPath(@"..\..\..\");
-        
-        int counter = 0;
+
+        int numberOfFailures = 0;
 
         string wordToGuess;
 
@@ -25,20 +25,20 @@ namespace HangmanCS
         readonly List<string> images = new List<string>();
         List<string> wordList;
         readonly List<string> keyStroke = new List<string>();
-        int counter2 = 0;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            ImagesToList();
-            GetWord();
-            SetImage();
-            RefreshWord();
+            ImageList(); //Fill imgaes in a List
+            GetWord(); //Gets the word from word.txt
+            CheckGameOverAndUpdateGUI(); //Update the GUI with the Background Image
+            UpdateWordInGUI();
         }
-        
-        private void ImagesToList()
+
+        private void ImageList()
         {
-            
+
             images.Add("\\resources\\images\\Hangman01.png");
             images.Add("\\resources\\images\\Hangman02.png");
             images.Add("\\resources\\images\\Hangman03.png");
@@ -51,7 +51,7 @@ namespace HangmanCS
             images.Add("\\resources\\images\\Hangman10.png");
             images.Add("\\resources\\images\\Hangman11.png");
             images.Add("\\resources\\images\\Hangman12.png");
-        }  
+        }
 
         private void GetWord()
         {
@@ -59,12 +59,14 @@ namespace HangmanCS
             string[] lines = File.ReadAllLines(projectPath + "\\resources\\words\\words.txt");
             //string array into a list
             wordList = new List<string>(lines);
-    
-            //select word with generatet number
-            wordToGuess = wordList[RandomNumber(wordList.Count)];
-            Debug.WriteLine(wordToGuess, "word to Guess");
-            Debug.WriteLine(wordToGuess.Length, "word to Guess wortlaenge");
 
+            //select word with generatet number and convert to uppercase
+            while (string.IsNullOrEmpty(wordToGuess) || wordToGuess.Length > 14)
+            {
+                wordToGuess = wordList[RandomNumber(wordList.Count)].ToUpper();
+                Debug.WriteLine(wordToGuess, "word to Guess");
+                Debug.WriteLine(wordToGuess.Length, "word to Guess wortlaenge");
+            }
         }
 
         private int RandomNumber(int max)
@@ -74,30 +76,59 @@ namespace HangmanCS
             return randomNumber;
         }
 
-        private void RefreshWord()
+        private void UpdateWordInGUI()
         {
+            var counter2 = 0;//DEBUG
+            string textForLabel = "";
 
-            for (int i = 0; i <= wordToGuess.Length; i++) 
+            for (int i = 0; i < wordToGuess.Length; i++)
             {
-                LabelWordToGuess.Content += $" _ ";
+                if (i != 0)
+                {
+                    textForLabel += " "; 
+                }
+
+                if (keyStroke.Contains(wordToGuess))
+                {
+                    textForLabel += wordToGuess[i];
+                }
+
+                else
+                {
+                    textForLabel += "_";
+                }
+
+                LabelWordToGuess.Content = textForLabel;
+                counter2++;
+                Debug.WriteLine(counter2, "for _");
             }
-
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
-            counter += 1;
-            SetImage();         
-            
+            Reset();
         }
 
-        private void SetImage()
+        private void Reset()
         {
+            numberOfFailures = 0;
+            keyStroke.Clear();
+            wordToGuess = "";
+            LabelWordToGuess.Content = $"";
+            CheckGameOverAndUpdateGUI();
+            GetWord();
+            UpdateWordInGUI();
+        }
+
+        private void CheckGameOverAndUpdateGUI()
+        {
+
             //Sets the Background Image
-            if (images.Count > counter)
+            if (images.Count > numberOfFailures)
             {
-                Uri fileUri = new Uri(projectPath + images[counter]);
+                Uri fileUri = new Uri(projectPath + images[numberOfFailures]);
                 Background.Source = new BitmapImage(fileUri);
+                LableGameOver.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -119,10 +150,23 @@ namespace HangmanCS
                 {
                     MessageBox.Show("Buchstabe schon eingegeben!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
+
                 else
                 {
-                    keyStroke.Add(letter);
-                    Debug.WriteLine(letter, "pressed key is a letter");
+                    keyStroke.Add(letter); //eingegeben buchstabe zur Liste hinzufügen
+                    
+                    if (wordToGuess.Contains(letter))
+                    {
+                        //keyStroke.Add(letter);
+                        Debug.WriteLine(letter, "pressed key is a letter");
+                        UpdateWordInGUI();
+                    }
+                    else
+                    {
+                        numberOfFailures++;
+                        CheckGameOverAndUpdateGUI();
+                        
+                    }
                 }
             }
             else

@@ -11,7 +11,7 @@
     </Window.Resources>
     <Grid>
         <Image x:Name="Background" HorizontalAlignment="Left" Height="700" Width="525" Margin="0,0,0,0" VerticalAlignment="Top" Source="resources/images/Hangman01.png" />
-        <Button x:Name="ChangeImage" Content="Image" HorizontalAlignment="Left" Margin="427,57,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button x:Name="ResetButton" Content="Reset" HorizontalAlignment="Left" FontFamily="Arial" FontWeight="Bold" Margin="427,57,0,0" VerticalAlignment="Top" Click="Reset_Button_Click" Height="34" Width="71" FontSize="20"/>
         <Label x:Name="LableGameOver" Content="GAME OVER" HorizontalAlignment="Center" Height="175" Margin="0,238,0,0" VerticalAlignment="Top" Width="525" 
                FontSize="72" FontFamily="Arial" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
         <Label x:Name="LabelWordToGuess" Content="" HorizontalAlignment="Center" Height="52" Width="525" Margin="0,96,0,0" VerticalAlignment="Top" 
