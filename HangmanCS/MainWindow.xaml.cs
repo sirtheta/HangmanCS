@@ -32,9 +32,7 @@ namespace HangmanCS
         {
             InitializeComponent();
             ImageList(); //Fill imgaes in a List
-            GetWord(); //Gets the word from word.txt
-            CheckGameOverAndUpdateGUI(); //Update the GUI with the Background Image
-            UpdateWordInGUI();
+            PrepareNewGame();
         }
 
         private void ImageList()
@@ -112,7 +110,7 @@ namespace HangmanCS
                 switch (yesNo)
                 {
                     case MessageBoxResult.Yes:
-                        Reset();
+                        PrepareNewGame();
                         break;
 
                     case MessageBoxResult.No:
@@ -122,23 +120,32 @@ namespace HangmanCS
             }
         }
         
+        private void DlgGetLetterNumber()
+        {
 
+            int defaultWordLength = 5;
+            var dlgInput = new InputWordLentgth(defaultWordLength);
+            dlgInput.ShowDialog();
+            Debug.WriteLine(dlgInput, "return from dialog");
+        }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
         {
-            Reset();
+            PrepareNewGame();
         }
 
-        private void Reset()
+        private void PrepareNewGame()
         {
             //Resets the Playground and loads a new Word
             numberOfFailures = 0;
             keyStroke.Clear();
             wordToGuess = "";
             LabelWordToGuess.Content = $"";
-            CheckGameOverAndUpdateGUI();
-            GetWord();
+            CheckGameOverAndUpdateGUI();//Update the GUI with the Background Image
+            DlgGetLetterNumber();
+            GetWord(); //Gets the word from word.txt
             UpdateWordInGUI();
+
         }
 
         private void CheckGameOverAndUpdateGUI()
@@ -164,10 +171,10 @@ namespace HangmanCS
             //checks if key is a letter, convert it and add id to key Stroke List
             if (e.Key >= Key.A && e.Key <= Key.Z)
             {
+                //TODO: Why to string and then to char? should be possible directly to char
                 KeyConverter converter = new KeyConverter();
-                string letterStr = converter.ConvertToString(e.Key);
-                char letter = letterStr[0];
-                Debug.WriteLine(letter, "pressed key is a letter");
+                string letterStr = converter.ConvertToString(e.Key);//Convert to string
+                char letter = letterStr[0];                         //first letter in string to char
 
                 if (keyStroke.Contains(letter))
                 {
@@ -181,7 +188,6 @@ namespace HangmanCS
                     if (wordToGuess.Contains(letter))
                     {
                         //keyStroke.Add(letter);
-                        Debug.WriteLine(letter, "pressed key is a letter");
                         UpdateWordInGUI();
                     }
                     else
