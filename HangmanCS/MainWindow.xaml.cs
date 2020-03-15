@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Windows;
-using System.IO;
-using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPFSetup.Util; //Calling messagebox centeringClass
-using System.Linq;
 
 namespace HangmanCS
 {
@@ -104,8 +103,25 @@ namespace HangmanCS
             }
 
             LabelWordToGuess.Content = textForLabel;
-        }
 
+            if(!textForLabel.Contains("_"))
+            {
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
+                MessageBoxResult yesNo = MessageBox.Show("Du hast Gewonnen! Neues Wort Laden?", "Hangman", MessageBoxButton.YesNo, MessageBoxImage.Information);
+               
+                switch (yesNo)
+                {
+                    case MessageBoxResult.Yes:
+                        Reset();
+                        break;
+
+                    case MessageBoxResult.No:
+                        Environment.Exit(1);
+                        break;
+                }
+            }
+        }
+        
 
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -115,6 +131,7 @@ namespace HangmanCS
 
         private void Reset()
         {
+            //Resets the Playground and loads a new Word
             numberOfFailures = 0;
             keyStroke.Clear();
             wordToGuess = "";
