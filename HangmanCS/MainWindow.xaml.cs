@@ -31,7 +31,7 @@ namespace HangmanCS
         public MainWindow()
         {
             InitializeComponent();
-            ImageList(); //Fill imgaes in a List
+            ImageList(); //Fill images in a List
             PrepareNewGame();
         }
 
@@ -125,7 +125,7 @@ namespace HangmanCS
             int defaultWordLength = 5;
             var dlgInput = new InputWordLength(defaultWordLength);
             dlgInput.ShowDialog();
-            Debug.WriteLine(dlgInput.TotalValue, "return from dialog");
+            Debug.WriteLine(dlgInput.inputLength, "return from dialog");
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
