@@ -19,7 +19,7 @@ namespace HangmanCS
         readonly string projectPath = Path.GetFullPath(@"..\..\..\");
 
         int numberOfFailures = 0;
-
+        int wordLength;
         string wordToGuess;
 
 
@@ -60,7 +60,7 @@ namespace HangmanCS
             wordList = new List<string>(lines);
 
             //select word with generatet number and convert to uppercase
-            while (string.IsNullOrEmpty(wordToGuess) || wordToGuess.Length > 14)
+            while (string.IsNullOrEmpty(wordToGuess) || wordToGuess.Length != wordLength)
             {
                 wordToGuess = wordList[RandomNumber(wordList.Count)].ToUpper();
                 Debug.WriteLine(wordToGuess, "word to Guess");
@@ -74,7 +74,7 @@ namespace HangmanCS
             var randomNumber = random.Next(1, max);
             return randomNumber;
         }
-
+        
         private void UpdateWordInGUI()
         {
             var counter2 = 0;//DEBUG
@@ -125,6 +125,7 @@ namespace HangmanCS
             int defaultWordLength = 5;
             var dlgInput = new InputWordLength(defaultWordLength);
             dlgInput.ShowDialog();
+            wordLength = dlgInput.inputLength;
             Debug.WriteLine(dlgInput.inputLength, "return from dialog");
         }
 
@@ -155,7 +156,7 @@ namespace HangmanCS
                 Background.Source = new BitmapImage(fileUri);
                 LableGameOver.Visibility = Visibility.Hidden;
             }
-            else
+            if(numberOfFailures >= 11)
             {
                 LableGameOver.Visibility = Visibility.Visible;
             }
@@ -168,10 +169,7 @@ namespace HangmanCS
             //checks if key is a letter, convert it and add id to key Stroke List
             if (e.Key >= Key.A && e.Key <= Key.Z)
             {
-                //TODO: Why to string and then to char? should be possible directly to char
-                KeyConverter converter = new KeyConverter();
-                string letterStr = converter.ConvertToString(e.Key);//Convert to string
-                char letter = letterStr[0];                         //first letter in string to char
+                char letter = new KeyConverter().ConvertToString(e.Key)[0]; //first letter in string to char
 
                 if (keyStroke.Contains(letter))
                 {
