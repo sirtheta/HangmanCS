@@ -8,20 +8,18 @@ namespace HangmanCS
     /// <summary>
     /// Interaktionslogik für Window1.xaml
     /// </summary>
-    public partial class InputWordLentgth : Window
+    public partial class InputWordLength : Window
     {
         public int TotalValue { get; set; }
 
-        public InputWordLentgth(int dvalue)
+        public InputWordLength(int dvalue)
         {
             InitializeComponent();
-            this.GetWordLength.Text = dvalue.ToString();
-            
-    }
+            GetWordLength.Text = dvalue.ToString();
+        }
 
         private void Button_OKClick(object sender, RoutedEventArgs e)
         {
-
             TotalValue = int.Parse(GetWordLength.Text);
             if (TotalValue > 14)
             {
@@ -30,8 +28,7 @@ namespace HangmanCS
             }
             else
             {
-                 
-                this.Close();
+                Close();
             }
         }
 
@@ -78,13 +75,13 @@ namespace HangmanCS
                     input = inputStr[0];                         //first letter in string to char
                     break;
             }
-            
+
             if (!Char.IsDigit(input))
             {
                 MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
                 MessageBox.Show("Es sind nur Zahlen erlaubt!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
+
         }
     }
 }

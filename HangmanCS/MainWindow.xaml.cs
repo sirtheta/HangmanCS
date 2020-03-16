@@ -87,26 +87,26 @@ namespace HangmanCS
                     textForLabel += " ";
                 }
 
-                    if (keyStroke.Contains(wordToGuess[i]))
-                    {
-                        textForLabel += wordToGuess[i];
-                    }
+                if (keyStroke.Contains(wordToGuess[i]))
+                {
+                    textForLabel += wordToGuess[i];
+                }
 
-                    else
-                    {
-                        textForLabel += "__"; //two underscores because first will be recognised as Access key and not displayed
-                    }
+                else
+                {
+                    textForLabel += "__"; //two underscores because first will be recognised as Access key and not displayed
+                }
                 counter2++;
                 Debug.WriteLine(counter2, "for _");
             }
 
             LabelWordToGuess.Content = textForLabel;
 
-            if(!textForLabel.Contains("_"))
+            if (!textForLabel.Contains("_"))
             {
                 MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
                 MessageBoxResult yesNo = MessageBox.Show("Du hast Gewonnen! Neues Wort Laden?", "Hangman", MessageBoxButton.YesNo, MessageBoxImage.Information);
-               
+
                 switch (yesNo)
                 {
                     case MessageBoxResult.Yes:
@@ -119,14 +119,13 @@ namespace HangmanCS
                 }
             }
         }
-        
+
         private void DlgGetLetterNumber()
         {
-
             int defaultWordLength = 5;
-            var dlgInput = new InputWordLentgth(defaultWordLength);
+            var dlgInput = new InputWordLength(defaultWordLength);
             dlgInput.ShowDialog();
-            Debug.WriteLine(dlgInput, "return from dialog");
+            Debug.WriteLine(dlgInput.TotalValue, "return from dialog");
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -145,12 +144,10 @@ namespace HangmanCS
             DlgGetLetterNumber();
             GetWord(); //Gets the word from word.txt
             UpdateWordInGUI();
-
         }
 
         private void CheckGameOverAndUpdateGUI()
         {
-
             //Sets the Background Image
             if (images.Count > numberOfFailures)
             {
@@ -184,7 +181,7 @@ namespace HangmanCS
                 else
                 {
                     keyStroke.Add(letter); //eingegeben buchstabe zur Liste hinzufügen
-                    
+
                     if (wordToGuess.Contains(letter))
                     {
                         //keyStroke.Add(letter);
@@ -194,7 +191,6 @@ namespace HangmanCS
                     {
                         numberOfFailures++;
                         CheckGameOverAndUpdateGUI();
-                        
                     }
                 }
             }
