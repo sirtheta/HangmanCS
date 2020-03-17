@@ -10,7 +10,7 @@ namespace HangmanCS
     /// </summary>
     public partial class InputWordLength : Window
     {
-        public int inputLength { get; set; }
+        public int InputLength { get; set; }
 
         public InputWordLength(int value)
         {
@@ -20,11 +20,11 @@ namespace HangmanCS
 
         private void Button_OKClick(object sender, RoutedEventArgs e)
         {
-            inputLength = int.Parse(GetWordLength.Text);
-            if (inputLength > 14)
+            InputLength = int.Parse(GetWordLength.Text);
+            if (InputLength > 18 || InputLength <= 3)
             {
                 MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
-                MessageBox.Show("gib eine Zahl kleiner 15 ein!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("gib eine Zahl zwischen 1 & 15 ein!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {

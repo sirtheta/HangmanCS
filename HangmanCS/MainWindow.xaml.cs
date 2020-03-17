@@ -77,7 +77,6 @@ namespace HangmanCS
         
         private void UpdateWordInGUI()
         {
-            var counter2 = 0;//DEBUG
             string textForLabel = "";
 
             for (int i = 0; i < wordToGuess.Length; i++)
@@ -96,8 +95,6 @@ namespace HangmanCS
                 {
                     textForLabel += "__"; //two underscores because first will be recognised as Access key and not displayed
                 }
-                counter2++;
-                Debug.WriteLine(counter2, "for _");
             }
 
             LabelWordToGuess.Content = textForLabel;
@@ -125,8 +122,8 @@ namespace HangmanCS
             int defaultWordLength = 5;
             var dlgInput = new InputWordLength(defaultWordLength);
             dlgInput.ShowDialog();
-            wordLength = dlgInput.inputLength;
-            Debug.WriteLine(dlgInput.inputLength, "return from dialog");
+            wordLength = dlgInput.InputLength;
+            Debug.WriteLine(dlgInput.InputLength, "return from dialog");
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -159,6 +156,8 @@ namespace HangmanCS
             if(numberOfFailures >= 11)
             {
                 LableGameOver.Visibility = Visibility.Visible;
+                LabelWordToGuess.Content = wordToGuess;
+
             }
         }
 
