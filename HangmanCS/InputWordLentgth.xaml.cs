@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using WPFSetup.Util;
@@ -24,12 +25,24 @@ namespace HangmanCS
             if (InputLength > 18 || InputLength <= 3)
             {
                 MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
-                MessageBox.Show("gib eine Zahl zwischen 1 & 15 ein!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("gib eine Zahl zwischen 1 & 17 ein!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
                 Close();
             }
+        }
+
+        private void Button_RandomClick(object sender, RoutedEventArgs e)
+        {                     
+            int min = 3;
+            int max = 17;
+
+            Logic random = new Logic();
+
+            InputLength = random.RandomNumber(min, max);
+            Debug.WriteLine(InputLength, "zufall");
+            Close();
         }
 
         private void GetWordLength_KeyDown(object sender, KeyEventArgs e)
@@ -83,5 +96,6 @@ namespace HangmanCS
             }
 
         }
+
     }
 }

@@ -51,30 +51,26 @@ namespace HangmanCS
             images.Add("\\resources\\images\\Hangman11.png");
             images.Add("\\resources\\images\\Hangman12.png");
         }
-
+        
+        //TODO: Move GetWord() to Logic
         private void GetWord()
         {
             //opens the Textfile and puts the lines into a string array
             string[] lines = File.ReadAllLines(projectPath + "\\resources\\words\\words.txt");
             //string array into a list
             wordList = new List<string>(lines);
-
+            
+            Logic random = new Logic();
+            
             //select word with generatet number and convert to uppercase
             while (string.IsNullOrEmpty(wordToGuess) || wordToGuess.Length != wordLength)
             {
-                wordToGuess = wordList[RandomNumber(wordList.Count)].ToUpper();
+                wordToGuess = wordList[random.RandomNumber(3, wordList.Count)].ToUpper();
                 Debug.WriteLine(wordToGuess, "word to Guess");
                 Debug.WriteLine(wordToGuess.Length, "word to Guess wortlaenge");
             }
         }
-
-        private int RandomNumber(int max)
-        {
-            Random random = new Random();
-            var randomNumber = random.Next(1, max);
-            return randomNumber;
-        }
-        
+       
         private void UpdateWordInGUI()
         {
             string textForLabel = "";
