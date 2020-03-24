@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using WPFSetup.Util; //Calling messagebox centeringClass
-
+//https://www.youtube.com/watch?v=6Yf-eDsRrnM
 namespace HangmanCS
 {
     /// <summary>
@@ -119,7 +119,17 @@ namespace HangmanCS
             var dlgInput = new InputWordLength(defaultWordLength);
             dlgInput.ShowDialog();
             wordLength = dlgInput.InputLength;
-            Debug.WriteLine(dlgInput.InputLength, "return from dialog");
+            
+            if (wordLength == 0)
+            {
+                int min = 3;
+                int max = 17;
+
+                Logic random = new Logic();
+
+                wordLength = random.RandomNumber(min, max);
+            }
+           
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -157,7 +167,7 @@ namespace HangmanCS
             }
         }
 
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        public void Window_KeyDown(object sender, KeyEventArgs e)
         {
             MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
 
@@ -191,6 +201,17 @@ namespace HangmanCS
             {
                 MessageBox.Show("Es sind nur Buchstaben von A-Z erlaubt!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        private void Hint_Button_Click(object sender, RoutedEventArgs e)
+        {             
+            Logic random = new Logic();
+
+            var rndHint = random.RandomNumber(1, wordToGuess.Length);
+            keyStroke.Add(wordToGuess[rndHint]);
+            UpdateWordInGUI();
+            numberOfFailures++;
+            CheckGameOverAndUpdateGUI();
         }
     }
 }
