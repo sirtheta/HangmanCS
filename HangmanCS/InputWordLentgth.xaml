@@ -11,7 +11,7 @@
             <ColumnDefinition Width="221*"/>
             <ColumnDefinition Width="131*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="LabelTextInputWordLength" Content="Bite gib die Gewünschte Wortlänge ein:" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="23,10,0,0" 
+        <Label x:Name="LabelTextInputWordLength" Content="Bitte gib die gewünschte Wortlänge ein:" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="23,10,0,0" 
                 VerticalAlignment="Top" Width="275" FontFamily="Arial" FontSize="15" Grid.ColumnSpan="2"/>
         <TextBox x:Name="GetWordLength" HorizontalAlignment="Left" Height="24" Margin="23,40,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" 
                  Width="213" FontFamily="Arial" FontSize="15" Grid.ColumnSpan="2" KeyDown="GetWordLength_KeyDown"/>
