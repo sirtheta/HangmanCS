@@ -55,7 +55,7 @@ namespace HangmanCS
             Logic random = new Logic();
 
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "HangmanCS.words.txt";
+            var resourceName = "HangmanCS.resources.words.txt";
 
             Stream stream = assembly.GetManifestResourceStream(resourceName);
             StreamReader reader = new StreamReader(stream);
