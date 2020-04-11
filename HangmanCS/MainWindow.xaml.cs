@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using WPFSetup.Util; //Calling messagebox centeringClass
-//https://www.youtube.com/watch?v=6Yf-eDsRrnM
+
 namespace HangmanCS
 {
     /// <summary>
@@ -15,16 +15,13 @@ namespace HangmanCS
     /// 
     public partial class MainWindow : Window
     {
-        //set Project Path
-        readonly string projectPath = Path.GetFullPath(@"..\..\..\");
-
         int numberOfFailures = 0;
         int wordLength;
         string wordToGuess;
 
 
         readonly List<string> images = new List<string>();
-        List<string> wordList;
+        readonly List<string> wordList = new List<string>();
         readonly List<char> keyStroke = new List<char>();
 
 
@@ -38,39 +35,44 @@ namespace HangmanCS
         private void ImageList()
         {
 
-            images.Add("\\resources\\images\\Hangman01.png");
-            images.Add("\\resources\\images\\Hangman02.png");
-            images.Add("\\resources\\images\\Hangman03.png");
-            images.Add("\\resources\\images\\Hangman04.png");
-            images.Add("\\resources\\images\\Hangman05.png");
-            images.Add("\\resources\\images\\Hangman06.png");
-            images.Add("\\resources\\images\\Hangman07.png");
-            images.Add("\\resources\\images\\Hangman08.png");
-            images.Add("\\resources\\images\\Hangman09.png");
-            images.Add("\\resources\\images\\Hangman10.png");
-            images.Add("\\resources\\images\\Hangman11.png");
-            images.Add("\\resources\\images\\Hangman12.png");
+            images.Add("pack://application:,,,/resources/images/Hangman01.png");
+            images.Add("pack://application:,,,/resources/images/Hangman02.png");
+            images.Add("pack://application:,,,/resources/images/Hangman03.png");
+            images.Add("pack://application:,,,/resources/images/Hangman04.png");
+            images.Add("pack://application:,,,/resources/images/Hangman05.png");
+            images.Add("pack://application:,,,/resources/images/Hangman06.png");
+            images.Add("pack://application:,,,/resources/images/Hangman07.png");
+            images.Add("pack://application:,,,/resources/images/Hangman08.png");
+            images.Add("pack://application:,,,/resources/images/Hangman09.png");
+            images.Add("pack://application:,,,/resources/images/Hangman10.png");
+            images.Add("pack://application:,,,/resources/images/Hangman11.png");
+            images.Add("pack://application:,,,/resources/images/Hangman12.png");
         }
-        
+
         //TODO: Move GetWord() to Logic
         private void GetWord()
         {
-            //opens the Textfile and puts the lines into a string array
-            string[] lines = File.ReadAllLines(projectPath + "\\resources\\words\\words.txt");
-            //string array into a list
-            wordList = new List<string>(lines);
-            
             Logic random = new Logic();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "HangmanCS.words.txt";
+
+            Stream stream = assembly.GetManifestResourceStream(resourceName);
+            StreamReader reader = new StreamReader(stream);
             
+            while (reader.Peek() >= 0)
+            {
+                wordList.Add(reader.ReadLine());
+            }
+
+
             //select word with generatet number and convert to uppercase
             while (string.IsNullOrEmpty(wordToGuess) || wordToGuess.Length != wordLength)
             {
                 wordToGuess = wordList[random.RandomNumber(3, wordList.Count)].ToUpper();
-                Debug.WriteLine(wordToGuess, "word to Guess");
-                Debug.WriteLine(wordToGuess.Length, "word to Guess wortlaenge");
             }
         }
-       
+
         private void UpdateWordInGUI()
         {
             string textForLabel = "";
@@ -119,7 +121,7 @@ namespace HangmanCS
             var dlgInput = new InputWordLength(defaultWordLength);
             dlgInput.ShowDialog();
             wordLength = dlgInput.InputLength;
-            
+
             if (wordLength == 0)
             {
                 int min = 3;
@@ -129,7 +131,7 @@ namespace HangmanCS
 
                 wordLength = random.RandomNumber(min, max);
             }
-           
+
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -155,11 +157,11 @@ namespace HangmanCS
             //Sets the Background Image
             if (images.Count > numberOfFailures)
             {
-                Uri fileUri = new Uri(projectPath + images[numberOfFailures]);
+                Uri fileUri = new Uri(images[numberOfFailures]);
                 Background.Source = new BitmapImage(fileUri);
                 LableGameOver.Visibility = Visibility.Hidden;
             }
-            if(numberOfFailures >= 11)
+            if (numberOfFailures >= 11)
             {
                 LableGameOver.Visibility = Visibility.Visible;
                 LabelWordToGuess.Content = wordToGuess;
@@ -204,7 +206,7 @@ namespace HangmanCS
         }
 
         private void Hint_Button_Click(object sender, RoutedEventArgs e)
-        {             
+        {
             Logic random = new Logic();
 
             var rndHint = random.RandomNumber(1, wordToGuess.Length);

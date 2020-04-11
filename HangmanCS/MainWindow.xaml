@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HangmanCS"
         mc:Ignorable="d"
-        Title="HangMan" Height="700" Width="525" KeyDown="Window_KeyDown">
+        Title="HangMan" Height="700" Width="525" KeyDown="Window_KeyDown" Icon="/resources/images/Hangman.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
     </Window.Resources>
     <Grid>

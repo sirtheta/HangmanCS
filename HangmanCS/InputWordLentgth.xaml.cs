@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 using WPFSetup.Util;
@@ -7,7 +6,7 @@ using WPFSetup.Util;
 namespace HangmanCS
 {
     /// <summary>
-    /// Interaktionslogik für Window1.xaml
+    /// Interaktionslogik für InputWordLength.xaml
     /// </summary>
     public partial class InputWordLength : Window
     {
@@ -41,7 +40,6 @@ namespace HangmanCS
             Logic random = new Logic();
 
             InputLength = random.RandomNumber(min, max);
-            Debug.WriteLine(InputLength, "zufall");
             Close();
         }
 
