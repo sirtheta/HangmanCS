@@ -20,57 +20,15 @@ namespace HangmanCS
         string wordToGuess;
 
 
-        readonly List<string> images = new List<string>();
-        readonly List<string> wordList = new List<string>();
+        List<string> images = new List<string>();
+        List<string> wordList = new List<string>();
         readonly List<char> keyStroke = new List<char>();
 
 
         public MainWindow()
         {
-            InitializeComponent();
-            ImageList(); //Fill images in a List
+            InitializeComponent();          
             PrepareNewGame();
-        }
-
-        private void ImageList()
-        {
-
-            images.Add("pack://application:,,,/resources/images/Hangman01.png");
-            images.Add("pack://application:,,,/resources/images/Hangman02.png");
-            images.Add("pack://application:,,,/resources/images/Hangman03.png");
-            images.Add("pack://application:,,,/resources/images/Hangman04.png");
-            images.Add("pack://application:,,,/resources/images/Hangman05.png");
-            images.Add("pack://application:,,,/resources/images/Hangman06.png");
-            images.Add("pack://application:,,,/resources/images/Hangman07.png");
-            images.Add("pack://application:,,,/resources/images/Hangman08.png");
-            images.Add("pack://application:,,,/resources/images/Hangman09.png");
-            images.Add("pack://application:,,,/resources/images/Hangman10.png");
-            images.Add("pack://application:,,,/resources/images/Hangman11.png");
-            images.Add("pack://application:,,,/resources/images/Hangman12.png");
-        }
-
-        //TODO: Move GetWord() to Logic
-        private void GetWord()
-        {
-            Logic random = new Logic();
-
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "HangmanCS.resources.words.txt";
-
-            Stream stream = assembly.GetManifestResourceStream(resourceName);
-            StreamReader reader = new StreamReader(stream);
-            
-            while (reader.Peek() >= 0)
-            {
-                wordList.Add(reader.ReadLine());
-            }
-
-
-            //select word with generatet number and convert to uppercase
-            while (string.IsNullOrEmpty(wordToGuess) || wordToGuess.Length != wordLength)
-            {
-                wordToGuess = wordList[random.RandomNumber(3, wordList.Count)].ToUpper();
-            }
         }
 
         private void UpdateWordInGUI()
@@ -131,7 +89,6 @@ namespace HangmanCS
 
                 wordLength = random.RandomNumber(min, max);
             }
-
         }
 
         private void Reset_Button_Click(object sender, RoutedEventArgs e)
@@ -141,16 +98,19 @@ namespace HangmanCS
 
         private void PrepareNewGame()
         {
+            Logic logic = new Logic();
             //Resets the Playground and loads a new Word
             numberOfFailures = 0;
             keyStroke.Clear();
             wordToGuess = "";
             LabelWordToGuess.Content = $"";
+            logic.ImageList(ref images);
             CheckGameOverAndUpdateGUI();//Update the GUI with the Background Image
             DlgGetLetterNumber();
-            GetWord(); //Gets the word from word.txt
+            logic.GetWord(ref wordList, ref wordToGuess, ref wordLength); //Gets the word from word.txt
             UpdateWordInGUI();
         }
+        
 
         private void CheckGameOverAndUpdateGUI()
         {
@@ -161,6 +121,7 @@ namespace HangmanCS
                 Background.Source = new BitmapImage(fileUri);
                 LableGameOver.Visibility = Visibility.Hidden;
             }
+
             if (numberOfFailures >= 11)
             {
                 LableGameOver.Visibility = Visibility.Visible;
