@@ -20,6 +20,11 @@ namespace HangmanCS
 
         private void Button_OKClick(object sender, RoutedEventArgs e)
         {
+            InputLengthNumber();
+        }
+
+        private void InputLengthNumber()
+        {
             InputLength = int.Parse(GetWordLength.Text);
             if (InputLength > 18 || InputLength <= 3)
             {
@@ -32,14 +37,19 @@ namespace HangmanCS
             }
         }
 
-        private void Button_RandomClick(object sender, RoutedEventArgs e)
-        {                     
+        private void RandomLength()
+        {
             int min = 3;
             int max = 17;
 
             Logic random = new Logic();
 
             InputLength = random.RandomNumber(min, max);
+        }
+
+        private void Button_RandomClick(object sender, RoutedEventArgs e)
+        {
+            RandomLength();
             Close();
         }
 
@@ -93,6 +103,20 @@ namespace HangmanCS
                 MessageBox.Show("Es sind nur Zahlen erlaubt!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
+        }
+
+        private void ButtonOK_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                InputLengthNumber();
+            }
+
+            if (e.Key == Key.Escape)
+            {
+                RandomLength();
+                Close();
+            }
         }
     }
 }
