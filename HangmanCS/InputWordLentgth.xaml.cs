@@ -18,19 +18,28 @@ namespace HangmanCS
             GetWordLength.Text = value.ToString();
         }
 
+
         private void Button_OKClick(object sender, RoutedEventArgs e)
         {
             InputLengthNumber();
         }
 
+        private void Button_RandomClick(object sender, RoutedEventArgs e)
+        {
+            RandomLength();
+            Close();
+        }
+
         private void InputLengthNumber()
         {
             InputLength = int.Parse(GetWordLength.Text);
+
             if (InputLength > 18 || InputLength <= 3)
             {
                 MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
                 MessageBox.Show("gib eine Zahl zwischen 1 & 17 ein!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
             else
             {
                 Close();
@@ -45,12 +54,6 @@ namespace HangmanCS
             Logic random = new Logic();
 
             InputLength = random.RandomNumber(min, max);
-        }
-
-        private void Button_RandomClick(object sender, RoutedEventArgs e)
-        {
-            RandomLength();
-            Close();
         }
 
         private void GetWordLength_KeyDown(object sender, KeyEventArgs e)
@@ -97,26 +100,22 @@ namespace HangmanCS
                     break;
             }
 
-            if (!Char.IsDigit(input))
-            {
-                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
-                MessageBox.Show("Es sind nur Zahlen erlaubt!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
-        }
-
-        private void ButtonOK_KeyDown(object sender, KeyEventArgs e)
-        {
             if (e.Key == Key.Enter)
             {
                 InputLengthNumber();
             }
 
-            if (e.Key == Key.Escape)
+            else if (e.Key == Key.Escape)
             {
                 RandomLength();
                 Close();
             }
+
+            else if (!Char.IsDigit(input))
+            {
+                MessageBoxHelper.PrepToCenterMessageBoxOnForm(this); //Centers the messagebox on the application
+                MessageBox.Show("Es sind nur Zahlen erlaubt!", "Hangman", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }            
         }
     }
 }

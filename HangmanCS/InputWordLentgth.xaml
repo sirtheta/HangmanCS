@@ -5,18 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HangmanCS"
         mc:Ignorable="d"
-        Title="Hangman" Height="189" Width="360" KeyDown="ButtonOK_KeyDown" Icon="/resources/images/Hangman.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Grid Margin="0,0,2,29">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="221*"/>
-            <ColumnDefinition Width="131*"/>
-        </Grid.ColumnDefinitions>
+        FocusManager.FocusedElement="{Binding ElementName=GetWordLength}"
+        Title="Hangman" Height="189" Width="360" KeyDown="GetWordLength_KeyDown" Icon="/resources/images/Hangman.png" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid Name="MainGrid" Margin="0,0,0,0">
         <Label x:Name="LabelTextInputWordLength" Content="Bitte gib die gewünschte Wortlänge ein:" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="29" Margin="23,10,0,0" 
                 VerticalAlignment="Top" Width="275" FontFamily="Arial" FontSize="15" Grid.ColumnSpan="2"/>
-        <TextBox x:Name="GetWordLength" HorizontalAlignment="Left" Height="24" Margin="23,40,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" 
-                 Width="213" FontFamily="Arial" FontSize="15" Grid.ColumnSpan="2" KeyDown="GetWordLength_KeyDown"/>
-        <Button x:Name="ButtonOK" Content="OK" HorizontalAlignment="Left" Height="32" Margin="23,71,0,0" VerticalAlignment="Top" Width="77" Click="Button_OKClick"/>
-        <Button x:Name="ButtonRandom" Content="Zufall" HorizontalAlignment="Left" Height="32" Margin="122,71,0,0" VerticalAlignment="Top" Width="77" Click="Button_RandomClick"/>
+        <TextBox x:Name="GetWordLength" HorizontalAlignment="Left" Height="24" Margin="23,40,0,0" TextWrapping="Wrap" Text="5" CaretIndex="1"
+                 VerticalAlignment="Top" Width="213" FontFamily="Arial" FontSize="15"/>
+        <Button x:Name="ButtonOK" Content="OK" HorizontalAlignment="Left" Height="32" Margin="23,71,0,0" 
+                VerticalAlignment="Top" Width="77" Click="Button_OKClick"/>
+        <Button x:Name="ButtonRandom" Content="Zufall" HorizontalAlignment="Left" Height="32" Margin="122,71,0,0" 
+                VerticalAlignment="Top" Width="77" Click="Button_RandomClick"/>
 
 
     </Grid>
